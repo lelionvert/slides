@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>reveal-md</title>
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"># Quickie Map / Filter / Reduce
+</script></section><section  data-markdown><script type="text/template">
+## Prérequis
+
+- Function
+  - lambda / arrow function notation
+  - First Citizen
+    - Callback
+    - Return Function
+  - Pure Function ?
+- Immutabilité ?
+- Curry ?
+</script></section><section ><section data-markdown><script type="text/template">
+## Map
+</script></section><section data-markdown><script type="text/template">
+### Exemple
+
+Faire du popcorn
+
+[:corn:, :corn:, :corn:] => [:popcorn:, :popcorn:, :popcorn:]
+
+<aside class="notes"><p>par exemple, j&#39;ai un conteneur avec des épis de maïs que je voudrais transformer en pop corn</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Définition
+
+**`map`** permet de **transformer** un _ensemble de données_ dans un **autre _ensemble de données_** de **même taille** <!-- .element: class="fragment" data-fragment-index="1" -->
+
+**`map`** permet d'appliquer une **transformation** à chaque éléments d'un _ensemble de données_, résultant à un **autre _ensemble de données_** de **même taille** <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<aside class="notes"><p>est-ce que quelqu&#39;un peut essayer de donner une définition à la fonction map ?
+    reviewer : choisir une définition</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Fonction de transformation / Mapper
+</script></section><section data-markdown><script type="text/template">
+#### Exemple
+
+Chauffer
+
+(:corn:) => :popcorn:
+
+<aside class="notes"><p>pour reprendre l&#39;exemple, pour transformer du maïs en pop corn, il suffit d&#39;avoir quelque chose permettant de le chauffer</p>
+</aside></script></section><section data-markdown><script type="text/template">
+#### Définition
+
+Une **fonction** permet de **transformer** une **donnée** dans un **autre type de donnée** <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<aside class="notes"><p>est-ce que quelqu&#39;un peut essayer de donner une définition à un mapper ?
+    reviewer : est-ce que &quot;Mapper&quot; c&#39;est le bon terme ?</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Démo
+
+```typescript
+const chauffer = (épiDeMaïs) => "🍿"
+
+const conteneurDÉpisDeMaïs = ["🌽", "🌽", "🌽"]
+
+const conteneurDePopCorn = conteneurDÉpisDeMaïs.map(chauffer)
+
+expect(conteneurDePopCorn).toEqual(["🍿", "🍿", "🍿"])
+expect(conteneurDÉpisDeMaïs).toEqual(["🌽", "🌽", "🌽"])
+```
+
+<aside class="notes"><p>map renvoit un nouveau tableau et ne change pas celui sur lequel la transformation est appliquée comme le montre les <code>expect</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Exemple
+
+Mettre 2 à la puissance `n` une suite de nombres
+
+[`number`, `number`, `number`] => [`number`, `number`, `number`]
+
+<aside class="notes"><p>nouvel exemple, cette fois-ci plus concret : avec des nombres
+    on peut voir que le type de sorti PEUT etre le meme que le type d&#39;entré</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Démo
+
+```typescript
+const power2 = (someNumber) => 2 ** someNumber
+
+const numbers = [1, 2, 3]
+
+const numbersPowered = numbers.map(power2)
+
+expect(numbersPowered).toEqual([2, 4, 8])
+expect(numbers).toEqual([1, 2, 3])
+```
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Filtre / Filter
+</script></section><section data-markdown><script type="text/template">
+### Exemple
+
+[:cherries:, :tomato:, :green_apple:, :tomato:, :green_apple:] => [:tomato:, :tomato:]
+
+<aside class="notes"><p>je voudrais récupérer toutes les tomates qui sont dans mon bac à fruits</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Définition
+
+**`filter`** permet de **sélectionner** (filtrer) un **sous-_ensemble de données_** parmit un _ensemble de données_ <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<aside class="notes"><p>est-ce que quelqu&#39;un peut essayer de donner une définition à la fonction filter ?</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Prédicat / Predicate
+</script></section><section data-markdown><script type="text/template">
+#### Exemple
+
+Est-ce que ce fruit est une tomate ?
+
+(:cherries:|:tomato:|:green_apple:) => `boolean`
+</script></section><section data-markdown><script type="text/template">
+#### Définition
+
+Un **prédicat** est une **fonction** qui **vérifie** une **condition** <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<aside class="notes"><p>est-ce que quelqu&#39;un peut essayer de donner une définition à un prédicat ?</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Démo
+
+```typescript
+const estCeUneTomate = (fruit) => fruit === "🍅"
+
+const conteneurDeFruits = ["🍒", "🍅", "🍏", "🍅", "🍏"]
+
+const conteneurDeTomate = conteneurDeFruits.filter(estCeUneTomate)
+
+expect(conteneurDeTomate).toEqual(["🍅", "🍅"])
+expect(conteneurDeFruits).toEqual(["🍒", "🍅", "🍏", "🍅", "🍏"])
+```
+
+<aside class="notes"><p>filter renvoit un nouveau tableau et ne change pas celui sur lequel le filter est appliqué comme le montre les <code>expect</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Exemple
+
+Filtrer les nombres pairs d'une suite de nombres
+
+[`number`, `number`, `number`, `number`, `number`, `number`] => [`number`, `number`, `number`]
+</script></section><section data-markdown><script type="text/template">
+### Démo
+
+```typescript
+const isEven = (someNumber) => someNumber % 2 === 0
+
+const numbers = [1, 2, 3, 4, 5, 6]
+
+const evenNumbers = numbers.filter(isEven)
+
+expect(evenNumbers).toEqual([2, 4, 6])
+```
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Reduce
+</script></section><section data-markdown><script type="text/template">
+### Exemple
+
+Assembler une salade
+
+[:tomato:, :green_apple:, :leafy_green:] => :green_salad:
+</script></section><section data-markdown><script type="text/template">
+### Définition
+
+`reduce` permet de **réduire** (transformer) un _ensemble de données_ en une **autre donnée** <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<aside class="notes"><p>est-ce que quelqu&#39;un peut essayer de donner une définition à la fonction reduce ?</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Fonction de réduction / Reducer
+</script></section><section data-markdown><script type="text/template">
+#### Exemple
+
+(:green_salad:, :leafy_green:) => :green_salad:
+</script></section><section data-markdown><script type="text/template">
+#### Définition
+
+Un **reducer** est une **fonction** prend un **accumulateur** et un **élément** et retourne un **accumulateur** <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<aside class="notes"><p>est-ce que quelqu&#39;un peut essayer de donner une définition à un reducer ?</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Démo
+
+```typescript
+const assembler = (salade, ingrédient) => "🥗"
+
+const ingrédients = ["🍅", "🍏", "🥬"]
+
+const salade = ingrédients.reduce(assembler, "🥣")
+
+expect(salade).toEqual("🥗")
+expect(ingrédients).toEqual(["🍅", "🍏", "🥬"])
+```
+
+<aside class="notes"><p>pour commencer la salade, il faut d&#39;abord avoir un bol vide qui se remplira un peu plus à chaque itération</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Exemple
+
+Faire le produit d'une suite de nombres
+
+[`number`, `number`, `number`] => `number`
+
+`number * number * number === number`
+</script></section><section data-markdown><script type="text/template">
+### Démo
+
+```typescript
+const multiply = (accumulator, item) => accumulator * item
+
+const numbers = [2, 3, 4]
+
+const product = numbers.reduce(multiply, 1)
+
+expect(product).toEqual(24)
+```
+
+<!-- markdownlint-disable MD033 -->
+<div class="fragment" data-fragment-index="1">
+
+|                             accumulator | item |                                  result |
+|----------------------------------------:|-----:|----------------------------------------:|
+|                                       1 |    2 |     <span style="color: green">2</span> |
+|     <span style="color: green">2</span> |    3 | <span style="color: royalblue">6</span> |
+| <span style="color: royalblue">6</span> |    4 |                                      24 |
+
+</div>
+<!-- markdownlint-enable MD033 -->
+
+<aside class="notes"><p>le résultat du reducer est utilisé en tant qu&#39;accumulateur pour l&#39;iteration suivante
+    c&#39;est pour cette raison que nous sommes obligé de fournir une valeur initiale : pour la première itération</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
+## Tout en meme
+
+Il possible de chainer les traitements sur les _ensembles de données_
+</script></section><section data-markdown><script type="text/template">
+### Exemple de la salade composée
+
+Faire une salade avec ce qu'il y a dans mon frigo
+
+[:tomato:, :potato:, :green_apple:, :tomato:, :potato:, :green_apple:, :leafy_green:] => :green_salad:
+</script></section><section data-markdown><script type="text/template">
+### Démo
+
+```typescript
+const estCeUnePommeDeTerre = (ingrédient) => ingrédient === "🥔"
+const inverser = (prédicat) => (élément) => !prédicat(élément)
+const cuire = (ingrédient) => `${ingrédient} cuit`
+const couper = (ingrédient) => `${ingrédient} coupé`
+const assembler = (salade, ingrédient) => "🥗"
+
+const ingrédients = ["🍅", "🥔", "🍏", "🍅", "🥔", "🍏", "🥬"]
+
+const ingrédientsCuits = ingrédients.filter(estCeUnePommeDeTerre).map(cuire)
+const ingrédientsCrus = ingrédients.filter(inverser(estCeUnePommeDeTerre))
+
+const ingrédientsÀCouper = [
+	...ingrédientsCrus,
+	...ingrédientsCuits,
+]
+
+const ingrédientCoupés = ingrédientsÀCouper.map(couper)
+
+const salade = ingrédientCoupés.reduce(assembler, "🥣")
+
+expect(salade).toEqual("🥗")
+```
+
+<aside class="notes"><p>les pommes de terre crues sont toxiques pour l&#39;humain, il faut d&#39;abord les cuire pour les mettre dans la salade
+    un prédicat renvoit toujours un <code>boolean</code> donc on peut inverser un prédicat en inversant la valeur de retour
+    <code>filter</code> renvoit un tableau, donc on peut chainer le <code>map</code></p>
+</aside></script></section></section><section  data-markdown><script type="text/template">
+## Références
+
+[filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+[map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+
+[reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+</script></section></div>
+    </div>
+
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
