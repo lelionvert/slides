@@ -1,4 +1,5 @@
 ---
+title: Quickie Map / Filter / Reduce
 revealOptions:
 	verticalSeparator: '\s----\s'
 ---
