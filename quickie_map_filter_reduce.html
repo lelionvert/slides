@@ -32,7 +32,7 @@
 
 Faire du popcorn
 
-[:corn:, :corn:, :corn:] => [:popcorn:, :popcorn:, :popcorn:]
+[🌽, 🌽, 🌽] => [🍿, 🍿, 🍿]
 
 <aside class="notes"><p>par exemple, j&#39;ai un conteneur avec des épis de maïs que je voudrais transformer en pop corn</p>
 </aside></script></section><section data-markdown><script type="text/template">
@@ -51,7 +51,7 @@ Faire du popcorn
 
 Chauffer
 
-(:corn:) => :popcorn:
+(🌽) => 🍿
 
 <aside class="notes"><p>pour reprendre l&#39;exemple, pour transformer du maïs en pop corn, il suffit d&#39;avoir quelque chose permettant de le chauffer</p>
 </aside></script></section><section data-markdown><script type="text/template">
@@ -103,7 +103,7 @@ expect(numbers).toEqual([1, 2, 3])
 </script></section><section data-markdown><script type="text/template">
 ### Exemple
 
-[:cherries:, :tomato:, :green_apple:, :tomato:, :green_apple:] => [:tomato:, :tomato:]
+[🍒, 🍅, 🍏, 🍅, 🍏] => [🍅, 🍅]
 
 <aside class="notes"><p>je voudrais récupérer toutes les tomates qui sont dans mon bac à fruits</p>
 </aside></script></section><section data-markdown><script type="text/template">
@@ -119,7 +119,7 @@ expect(numbers).toEqual([1, 2, 3])
 
 Est-ce que ce fruit est une tomate ?
 
-(:cherries:|:tomato:|:green_apple:) => `boolean`
+(🍒|🍅|🍏) => `boolean`
 </script></section><section data-markdown><script type="text/template">
 #### Définition
 
@@ -166,7 +166,7 @@ expect(evenNumbers).toEqual([2, 4, 6])
 
 Assembler une salade
 
-[:tomato:, :green_apple:, :leafy_green:] => :green_salad:
+[🍅, 🍏, 🥬] => 🥗
 </script></section><section data-markdown><script type="text/template">
 ### Définition
 
@@ -178,7 +178,7 @@ Assembler une salade
 </script></section><section data-markdown><script type="text/template">
 #### Exemple
 
-(:green_salad:, :leafy_green:) => :green_salad:
+(🥗, 🥬) => 🥗
 </script></section><section data-markdown><script type="text/template">
 #### Définition
 
@@ -244,7 +244,7 @@ Il possible de chainer les traitements sur les _ensembles de données_
 
 Faire une salade avec ce qu'il y a dans mon frigo
 
-[:tomato:, :potato:, :green_apple:, :tomato:, :potato:, :green_apple:, :leafy_green:] => :green_salad:
+[🍅, 🥔, 🍏, 🍅, 🥔, 🍏, 🥬] => 🥗
 </script></section><section data-markdown><script type="text/template">
 ### Démo
 
