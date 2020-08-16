@@ -23,7 +23,7 @@
 
 Faire du popcorn
 
-[:corn:, :corn:, :corn:] => [:popcorn:, :popcorn:, :popcorn:]
+[🌽, 🌽, 🌽] => [🍿, 🍿, 🍿]
 
 note: par exemple, j'ai un conteneur avec des épis de maïs que je voudrais transformer en pop corn
 
@@ -49,7 +49,7 @@ note:
 
 Chauffer
 
-(:corn:) => :popcorn:
+(🌽) => 🍿
 
 note: pour reprendre l'exemple, pour transformer du maïs en pop corn, il suffit d'avoir quelque chose permettant de le chauffer
 
@@ -115,7 +115,7 @@ expect(numbers).toEqual([1, 2, 3])
 
 ### Exemple
 
-[:cherries:, :tomato:, :green_apple:, :tomato:, :green_apple:] => [:tomato:, :tomato:]
+[🍒, 🍅, 🍏, 🍅, 🍏] => [🍅, 🍅]
 
 note: je voudrais récupérer toutes les tomates qui sont dans mon bac à fruits
 
@@ -138,7 +138,7 @@ note:
 
 Est-ce que ce fruit est une tomate ?
 
-(:cherries:|:tomato:|:green_apple:) => `boolean`
+(🍒|🍅|🍏) => `boolean`
 
 ----
 
@@ -199,7 +199,7 @@ expect(evenNumbers).toEqual([2, 4, 6])
 
 Assembler une salade
 
-[:tomato:, :green_apple:, :leafy_green:] => :green_salad:
+[🍅, 🍏, 🥬] => 🥗
 
 ----
 
@@ -218,7 +218,7 @@ note:
 
 #### Exemple
 
-(:green_salad:, :leafy_green:) => :green_salad:
+(🥗, 🥬) => 🥗
 
 ----
 
@@ -299,7 +299,7 @@ Il possible de chainer les traitements sur les _ensembles de données_
 
 Faire une salade avec ce qu'il y a dans mon frigo
 
-[:tomato:, :potato:, :green_apple:, :tomato:, :potato:, :green_apple:, :leafy_green:] => :green_salad:
+[🍅, 🥔, 🍏, 🍅, 🥔, 🍏, 🥬] => 🥗
 
 ----
 
