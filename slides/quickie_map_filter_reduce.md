@@ -35,9 +35,9 @@ note: par exemple, j'ai un conteneur avec des épis de maïs que je voudrais tra
 
 ### Définition
 
-**`map`** permet de **transformer** un _ensemble de données_ dans un **autre _ensemble de données_** de **même taille** <!-- .element: class="fragment" data-fragment-index="1" -->
+**`map`** permet de **transformer** un _ensemble de données_ dans un **autre _ensemble de données_** de **même taille**. <!-- .element: class="fragment" data-fragment-index="1" -->
 
-**`map`** permet d'appliquer une **transformation** à chaque éléments d'un _ensemble de données_, résultant à un **autre _ensemble de données_** de **même taille** <!-- .element: class="fragment" data-fragment-index="1" -->
+**`map`** permet d'appliquer une **transformation** à chaque éléments d'un _ensemble de données_, résultant à un **autre _ensemble de données_** de **même taille**. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 note:
 	est-ce que quelqu'un peut essayer de donner une définition à la fonction map ?
@@ -61,7 +61,7 @@ note: pour reprendre l'exemple, pour transformer du maïs en pop corn, il suffit
 
 #### Définition
 
-Une **fonction** permet de **transformer** une **donnée** dans un **autre type de donnée** <!-- .element: class="fragment" data-fragment-index="1" -->
+Une **fonction** permet de **transformer** une **donnée** dans un **autre type de donnée**. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 note:
 	est-ce que quelqu'un peut essayer de donner une définition à un mapper ?
@@ -127,7 +127,7 @@ note: je voudrais récupérer toutes les tomates qui sont dans mon bac à fruits
 
 ### Définition
 
-**`filter`** permet de **sélectionner** (filtrer) un **sous-_ensemble de données_** parmit un _ensemble de données_ <!-- .element: class="fragment" data-fragment-index="1" -->
+**`filter`** permet de **sélectionner** (filtrer) un **sous-_ensemble de données_** parmit un _ensemble de données_. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 note:
 	est-ce que quelqu'un peut essayer de donner une définition à la fonction filter ?
@@ -148,7 +148,7 @@ Est-ce que ce fruit est une tomate ?
 
 #### Définition
 
-Un **prédicat** est une **fonction** qui **vérifie** une **condition** <!-- .element: class="fragment" data-fragment-index="1" -->
+Un **prédicat** est une **fonction** qui **vérifie** une **condition**. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 note:
 	est-ce que quelqu'un peut essayer de donner une définition à un prédicat ?
@@ -209,7 +209,7 @@ Assembler une salade
 
 ### Définition
 
-`reduce` permet de **réduire** (transformer) un _ensemble de données_ en une **autre donnée** <!-- .element: class="fragment" data-fragment-index="1" -->
+`reduce` permet de **réduire** (transformer) un _ensemble de données_ en une **autre donnée**. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 note:
 	est-ce que quelqu'un peut essayer de donner une définition à la fonction reduce ?
@@ -228,7 +228,7 @@ note:
 
 #### Définition
 
-Un **reducer** est une **fonction** prend un **accumulateur** et un **élément** et retourne un **accumulateur** <!-- .element: class="fragment" data-fragment-index="1" -->
+Un **reducer** est une **fonction** prend un **accumulateur** et un **élément** et retourne un **accumulateur**. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 note:
 	est-ce que quelqu'un peut essayer de donner une définition à un reducer ?
