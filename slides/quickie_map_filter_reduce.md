@@ -1,3 +1,7 @@
+---
+revealOptions:
+	verticalSeparator: '\s----\s'
+---
 # Quickie Map / Filter / Reduce
 
 ---
