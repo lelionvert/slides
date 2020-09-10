@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Quickie Functions</title>
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+# Quickie Functions
+</script></section><section  data-markdown><script type="text/template">
+## Prérequis
+
+- Aucun
+</script></section><section  data-markdown><script type="text/template">
+## Définition
+
+<div class="fragment" data-fragment-index="1">
+
+Une fonction est une **portion de code** :
+
+- qui _doit_ **être déclarée**
+- qui _peut_ **être nommée**
+- qui _peut_ contenir une **suite d'instructions**
+- qui _peut_ **être appelée** après avoir été déclarée
+- qui _peut_ **prendre des arguments**
+- qui _peut_ **retourner une valeur**
+
+</div>
+
+<aside class="notes"><p>est-ce que quelqu&#39;un peut essayer de donner une définition de ce qu&#39;est une fonction ?</p>
+</aside></script></section><section ><section data-markdown><script type="text/template">
+## `function` keyword
+</script></section><section data-markdown><script type="text/template">
+### Déclaration
+
+```javascript
+it("should allow using functions", () => {
+  function increment(n) {
+    return n + 1;
+  }
+  expect(increment(0)).toEqual(1);
+});
+```
+
+<aside class="notes"><ul>
+<li>ligne 2 : une fonction est déclarée</li>
+<li>ligne 2 : elle est nommée <code>increment</code></li>
+<li>ligne 3 : elle a une instruction qui est une addition</li>
+<li>ligne 5 : elle est appelé</li>
+<li>ligne 2 : elle prend un argument nommé <code>n</code></li>
+<li>ligne 3 : elle retourne le résultat de sa dernière instruction</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
+#### Hissage / Hoisting
+
+```javascript
+it("Function declarations are hoisted", () => {
+  expect(increment(0)).toEqual(1);
+  function increment(n) {
+    return n + 1;
+  }
+});
+```
+
+<aside class="notes"><p>les fonctions déclarées avec le mot clé <code>function</code> sont &quot;hissées&quot; lors de la compilation du fichier et peuvent donc être appelées avant d&#39;être déclarées</p>
+</aside></script></section><section data-markdown><script type="text/template">
+#### Fonction Anonyme / Anonymous Function
+
+```javascript
+it("Function declarations can be anonymous", () => {
+  const increment = function(n) {
+    return n + 1;
+  };
+  expect(increment(0)).toEqual(1);
+});
+```
+
+<aside class="notes"><p>les fonctions peuvent ne pas avoir de nom, on appelle ça une fonction anonyme</p>
+<p>dans ce cas, la variable a un nom mais pas la fonction</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
+## Fonctions fléchées / Arrow functions
+
+<aside class="notes"><p>les fonctions fléchées sont une syntaxe alternative au mot clé <code>function</code></p>
+<p>dans la plupart des cas, c&#39;est complètement équivalent</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Déclaration
+
+```javascript
+it("should allow using arrow functions", () => {
+  const increment = (n) => {
+    return n + 1;
+  };
+  expect(increment(0)).toEqual(1);
+});
+```
+
+<aside class="notes"><p>par rapport à l&#39;exemple précédent :</p>
+<ul>
+<li>on a enlever le clé <code>function</code></li>
+<li>on a enlever ajouté la fat arrow <code>=&gt;</code> entre l&#39;argument et le block d&#39;instructions</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
+#### Arguments
+
+##### Arguments multiple
+
+```javascript
+it("should allow to have several arguments", () => {
+  const add = (n, k) => {
+    return n + k;
+  };
+  expect(add(0, 1)).toEqual(1);
+});
+```
+
+##### Simplification avec 1 argument
+
+```javascript
+it("should allow to omit braces", () => {
+  const increment = n => {
+    return n + 1;
+  };
+  expect(increment(0)).toEqual(1);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+#### Instructions
+
+##### Instructions multiple
+
+```javascript
+it("should contain multiple instructions", () => {
+  const increment = n => {
+    const x = n - 1;
+    return x + 2;
+  };
+  expect(increment(0)).toEqual(1);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+##### Simplification avec 1 instruction
+
+Instruction simple
+
+```javascript
+it("should allow to omit braces and return", () => {
+  const increment = n => n + 1;
+  expect(increment(0)).toEqual(1);
+});
+it("should allow to return array", () => {
+  const initArrayWith = n => [n];
+  expect(initArrayWith(42)).toEqual([42]);
+});
+```
+
+Object
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+```javascript
+it("should allow to return object", () => {
+  // const euro = euro => ({ euro: euro });
+  const euro = euro => ({ euro });
+  expect(euro(42)).toEqual({ euro: 42 });
+});
+```
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+<aside class="notes"><p>pour un objet, on ne peut pas seulement mettre des accolades, sinon ça ferait un block d&#39;instructions, dans ce cas, il faut entourer les accolades avec des parenthèses</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
+## Fonctions de première classe / First Class Citizen
+
+<aside class="notes"><p>les fonctions sont de première classe, elles peuvent être traitées comme n&#39;importe quelle variable</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Assign
+
+```javascript
+it("should allow to assign a function to a variable", () => {
+  const increment = function(n) {
+    return n + 1;
+  };
+  expect(increment(0)).toEqual(1);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+### Argument / Callback
+
+```javascript
+it("should allow to pass a function as a callback", () => {
+  function increment(n, callback) {
+    const result = n + 1;
+    callback(result);
+    return result;
+  }
+  const callback = jest.fn();
+  increment(0, callback);
+  expect(callback).toHaveBeenCalledWith(1);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+### Return
+
+```javascript
+it("should allow to return a function", () => {
+  function toPower(exponent) {
+    return function(n) {
+      return n ** exponent;
+    };
+  }
+  const toPower2 = toPower(2);
+  expect(toPower2(3)).toEqual(9);
+});
+```
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Parameters
+</script></section><section data-markdown><script type="text/template">
+### Default parameters
+
+```javascript
+it("should take default parameter", () => {
+  const hello = (name="world") => `Hello ${name} !`;
+  expect(hello()).toEqual("Hello world !");
+  expect(hello("dev")).toEqual("Hello dev !");
+});
+```
+</script></section><section data-markdown><script type="text/template">
+### Rest parameters
+
+```javascript
+it("should take rest parameters", () => {
+  const concat = (glue, ...parts) => parts.join(glue);
+  expect(concat("&", "Pepper", "Carrot")).toEqual("Pepper&Carrot");
+});
+```
+</script></section></section><section  data-markdown><script type="text/template">
+## IIFE
+
+Immediately Invoked Function Expression
+
+```javascript
+it("Function declarations can be immediately invoked", () => {
+  const increment = (function(n) {
+    return n + 1;
+  })(0);
+  expect(increment).toEqual(1);
+});
+```
+
+<aside class="notes"><p>il est possible d&#39;éxécuter une fonction directement après sa déclaration</p>
+<p>généralement, ce sont des fonctions anonymes</p>
+<p>ce n&#39;est pas souvent utilisé mais ça peut etre utile pour certains besoins spécifiques avancés</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Références
+
+- [Exemple](https://github.com/lelionvert/js-intro/tree/master/Functions)
+- [Fonction](https://developer.mozilla.org/fr/docs/Glossaire/Fonction)
+- [Hoisting](https://developer.mozilla.org/fr/docs/Glossaire/Hoisting)
+- [First Class Citizen](https://developer.mozilla.org/fr/docs/Glossaire/Fonction_de_premi%C3%A8re_classe)
+- [IIFE](https://developer.mozilla.org/fr/docs/Glossaire/IIFE)
+</script></section></div>
+    </div>
+
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"verticalSeparator":"\\s----\\s"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
