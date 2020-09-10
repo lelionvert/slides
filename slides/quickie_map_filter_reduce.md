@@ -9,7 +9,7 @@ revealOptions:
 
 ## Prérequis
 
-- Function
+- [Function](./quickie_functions.md)
   - lambda / arrow function notation
   - First Citizen
     - Callback
