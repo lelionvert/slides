@@ -116,8 +116,8 @@ it("should allow using arrow functions", () => {
 note:
 par rapport à l'exemple précédent :
 
-- on a enlever le clé `function`
-- on a enlever ajouté la fat arrow `=>` entre l'argument et le block d'instructions
+- on a enlevé le clé `function`
+- on a ajouté la fat arrow `=>` entre l'argument et le block d'instructions
 
 ----
 
