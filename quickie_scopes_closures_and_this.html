@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Quickie scopes, closures and this</title>
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+# Quickie scopes, closures and this
+</script></section><section  data-markdown><script type="text/template">
+## `var`, `let`, `const`
+
+There's no reason to use `var`.
+
+You should use `let` and `const`
+
+(and try to stick with `const`)
+</script></section><section ><section data-markdown><script type="text/template">
+## Scopes
+
+Blocks create new scopes
+
+(simple braces, for and while loops, try/catch statements)
+
+```javascript
+it("Blocks create new scopes", function() {
+  {
+    const a = 0;
+  }
+  expect(() => a).toThrow();
+});
+```
+</script></section><section data-markdown><script type="text/template">
+...except with `var`
+</script></section><section data-markdown><script type="text/template">
+Functions create new scopes
+
+```javascript
+it("Functions create new scopes", function() {
+  function doSomething() {
+    const a = 0;
+    return;
+  }
+  doSomething();
+  expect(() => a).toThrow();
+});
+```
+</script></section><section data-markdown><script type="text/template">
+A child scope has access to its parent's scope
+
+```javascript
+it("A child scope has access to its parents scope", function() {
+  const a = 0;
+  function doSomething() {
+    expect(a).toEqual(0);
+    return;
+  }
+  doSomething();
+});
+```
+</script></section><section data-markdown><script type="text/template">
+Shadowing is possible
+
+```javascript
+it("Shadowing is possible", function() {
+  const a = 0;
+  function doSomething() {
+    const a = 1;
+    return;
+  }
+  doSomething();
+  expect(a).toEqual(0);
+});
+```
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Closures
+</script></section><section data-markdown><script type="text/template">
+1. Functions car return functions;
+
+2. A child scope has access to its parent's scope.
+</script></section><section data-markdown><script type="text/template">
+A closure is a function with its scope
+
+(called "lexical scope")
+
+```javascript
+it("A simple closure", function() {
+  function times(i) {
+    return function(n) {
+      return i * n;
+    };
+  }
+  const times2 = times(2);
+  expect(times2(2)).toEqual(4);
+});
+```
+</script></section></section><section ><section data-markdown><script type="text/template">
+## `this` (from 😱 to 😎)
+</script></section><section data-markdown><script type="text/template">
+You can write code using `this` or not using `this` 😂
+</script></section><section data-markdown><script type="text/template">
+`this` refers to the current object
+
+```javascript
+it("this refers to the current object", function() {
+  const square = {
+    size: 6,
+    computeSurface: function() {
+      return this.size ** 2;
+    }
+  };
+  expect(square.size).toEqual(6);
+  expect(square.computeSurface()).toEqual(36);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+Functions being objects, `this` also make sense in the case of functions...
+
+```javascript
+it("Should allow creating objects with constructor functions", function() {
+  function Square(size) {
+    this.size = size;
+    this.computeSurface = function() {
+      return this.size ** 2;
+    };
+  }
+  const square = new Square(6);
+  expect(square.size).toEqual(6);
+  expect(square.computeSurface()).toEqual(36);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+...or should I say classes
+
+```javascript
+it("Should allow creating classes", function() {
+  class Square {
+    constructor(size) {
+      this.size = size;
+    }
+    computeSurface() {
+      return this.size ** 2;
+    }
+  }
+  const square = new Square(6);
+  expect(square.size).toEqual(6);
+  expect(square.computeSurface()).toEqual(36);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+But `this` goes with some pitfalls
+
+```javascript
+it("this should be undefined", function() {
+  class Square {
+    constructor(size) {
+      this.size = size;
+    }
+    computeSurface() {
+      return this.size ** 2;
+    }
+  }
+
+  const square = new Square(6);
+  const computeSurface = square.computeSurface;
+  expect(computeSurface).toThrowError("Cannot read property 'size' of undefined");
+});
+```
+</script></section><section data-markdown><script type="text/template">
+Why? Because the value of `this` is determined by the call site
+</script></section><section data-markdown><script type="text/template">
+`.bind()` to the rescue
+
+```javascript
+it("this should be defined again!", function() {
+  class Square {
+    constructor(size) {
+      this.size = size;
+    }
+    computeSurface() {
+      return this.size ** 2;
+    }
+  }
+
+  const square = new Square(6);
+  const boundComputeSurface = square.computeSurface.bind(square);
+  expect(boundComputeSurface()).toEqual(36);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+Or `.call()` if you prefer
+
+```javascript
+it("this should be defined", function() {
+  class Square {
+    constructor(size) {
+      this.size = size;
+    }
+    computePerimeter() {
+      return this.size * 4;
+    }
+  }
+  const square = new Square(6);
+  const computePerimeter = square.computePerimeter;
+  const diamond = {
+    size: 10
+  };
+  expect(computePerimeter.call(diamond)).toEqual(40);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+Here fat arrow functions are helpful as well
+
+```javascript
+it("this should be defined again!", function() {
+  class Square {
+    constructor(size) {
+      this.size = size;
+    }
+    computeSurface = () => this.size ** 2;
+  }
+  
+  const square = new Square(6);
+  const computeSurface = square.computeSurface;
+  expect(computeSurface()).toEqual(36);
+});
+```
+</script></section></section></div>
+    </div>
+
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
