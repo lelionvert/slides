@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Écosystème</title>
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section ><section data-markdown><script type="text/template">
+# Écosystème
+</script></section><section data-markdown><script type="text/template">
+Disclaimer :
+
+- non-exhaustif
+- subjectif
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Histoire
+
+<img data-src="./ecosystem/pere-castor.jpg" style="max-height: 50vh;" />
+
+<aside class="notes"><p>Focus sur la partie frontend, parce qu&#39;historiquement JS a été fait pour ça</p>
+<p>jusqu&#39;en en 2008, il y avait 2~4 navigateurs à supporter</p>
+<p>les browsers étaient rarement mit à jours</p>
+<p>puis est arrivé Chrome ...</p>
+</aside></script></section><section data-markdown><script type="text/template">
+![](./ecosystem/stat-counter-browser-ww-yearly-2009-2020.png)
+
+<small>
+
+[gs.statcounter.com/browser-market-share#yearly-2009-2020](https://gs.statcounter.com/browser-market-share#yearly-2009-2020)
+
+</small>
+</script></section><section data-markdown><script type="text/template">
+![](./ecosystem/stat-counter-browser-version-ww-monthly-200908-201007.png)
+
+<small>
+
+[gs.statcounter.com/browser-version-market-share#monthly-200908-201007](https://gs.statcounter.com/browser-version-market-share#monthly-200908-201007)
+
+</small>
+
+<aside class="notes"><p>Chrome a bousculé le web avec de nouvelles <strong>versions très fréquentes</strong> <em>ET</em> avec un système de <strong>mise à jour automatique</strong></p>
+<p>Les concurrents ont été obligés d&#39;adopter ce nouveau rythme</p>
+</aside></script></section><section data-markdown><script type="text/template">
+> bidule.com est cassé sur MachinBrowser alors que ça marche bien sur Chrome, donc Chrome est mieux, CQFD
+
+_User Lambda_
+
+<aside class="notes"><p>Chrome était <strong>moins stricte</strong> que les autres</p>
+<p>et incluait de <strong>nouvelles API</strong>, que certains dev s&#39;empressaient d&#39;utiliser</p>
+<p>certains sites étaient &quot;optimisé pour Chrome&quot;</p>
+</aside></script></section><section data-markdown><script type="text/template">
+🥚↔️🐔
+
+<aside class="notes"><p>Sans savoir qui a été le premier de l&#39;oeuf ou de la poule entre :</p>
+<ul>
+<li>des besoins grandissants</li>
+<li>des browsers avec plus de fonctionnalités</li>
+<li>de meilleurs outils</li>
+</ul>
+<p>Certainement un mélange de tout ça dans le contexte du moment</p>
+<p>C&#39;est vers cette période que les sites ont commencé à avoir de plus en plus de fonctionnalités coté frontend directement en HTML / CSS / JS</p>
+<p>Sans avoir besoin de Flash, Silverlight, applet Java ...</p>
+<p>Tout s&#39;est accéléré dans l&#39;écosystème</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
+## Un problème systémique
+
+|                         | MàJ programme |   MàJ env    | Stabilité |
+| :---------------------- | :-----------: | :----------: | :-------: |
+| client lourd installer  |    👨 user     | ⚙️ installer |     🙂     |
+| client lourd executable |    👨 user     |   📦 inclut   |     🙂     |
+| server                  |     🤓 dev     |    🧔 ops     |     🙂     |
+| web app                 |     🤓 dev     |    👨 user    |     😕     |
+
+<aside class="notes"><p>Définitions :</p>
+<ul>
+<li>environnement : dépendances, interpréteur ... tout ce qui est nécessaire au fonctionnement du programme</li>
+<li>client lourd installer : un programme qui s&#39;éxécute sur le poste de l&#39;user après l&#39;installation</li>
+<li>client lourd executable : un programme qui s&#39;éxécute sur le poste de l&#39;user sans avoir besoin de l&#39;installer (parfois appelé &quot;version portable&quot;), tout l&#39;environnement nécessaire au fonctionnement du programme est inclut dans le fichier éxécutable</li>
+<li>ops : opérateur, sys admin</li>
+</ul>
+<p>Commentaire :</p>
+<ul>
+<li>Client lourd installer : env maitrisé lors de l&#39;installation (ex : Apt, RPM, choco, brew ...)</li>
+<li>Client lourd executable : env maitrisé lors du packaging du programme (ex : AppImage)</li>
+<li>Serveur : env maitrisé par l&#39;entreprise ou ses partenaires, avec lesquels ces questions sont encadrés via des contrats</li>
+<li>web app : user choisit de mettre à jour ou non son web browser</li>
+</ul>
+<p>pour une web app, il faut donc définir sa cible de rétro compatibilité</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Rétrocompatibilité maitrisée
+
+<aside class="notes"><p>Comment maitriser cette rétro compatibilité ?</p>
+</aside></script></section><section data-markdown><script type="text/template">
+![](./ecosystem/caniuse-arrow-function.png)
+
+https://caniuse.com/
+
+<aside class="notes"><p>savoir si une API est disponible dans les web browsers qu&#39;on cible</p>
+</aside></script></section><section data-markdown><script type="text/template">
+https://kangax.github.io/compat-table/es6/
+
+<aside class="notes"><p>savoir si une fonctionnalité du langage est disponible dans les web browsers qu&#39;on cible</p>
+</aside></script></section><section data-markdown><script type="text/template">
+#### Polyfill
+
+[core-js](https://github.com/zloirock/core-js)
+
+<aside class="notes"><p>JS est un langage très permissif, lorsque une API n&#39;est pas présente dans l&#39;environnement ciblé, il est parfois possible d&#39;ajouter un <code>polyfill</code></p>
+<p>transparent et confortable pour les dev</p>
+<p><code>polyfill</code> : c&#39;est un bout de programme qui permet de simuler une nouvelle API avec des anciennes API</p>
+<p>ex : <code>Array.prototype.includes()</code>, <code>Array.isArray()</code></p>
+<p>le plus connu est actuellement <code>core-js</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
+#### Transpiler
+
+|                          |  JS   | Type  | => JS |
+| :----------------------- | :---: | :---: | :---: |
+| Babel                    |   ✅   |   ❌   |   ✅   |
+| TypeScript / Flow        |   ✅   |   ✅   |   ✅   |
+| CoffeeScript / ELM / ... |   ❌   |   🤷   |   ✅   |
+| Rust / Clojure / ...     |   ❌   |   🤷   |   ❌   |
+
+<aside class="notes"><p>parfois ce n&#39;est pas une API qui est manquante mais une fonctionnalité du langage</p>
+<p>normalement du code écrit dans un <code>langage informatique</code> ça sert à communiquer à un autre dev ce qu&#39;on voudrait que la machine fasse à notre place</p>
+<ul>
+<li>Compiler : langage informatique =&gt; langage machine</li>
+<li>Transpiler : langage informatique =&gt; langage informatique</li>
+</ul>
+<p><code>=&gt; JS</code> langage qui a été conçu pour etre transpilé en JS</p>
+</aside></script></section></section><section  data-markdown><script type="text/template">
+## Aperçu de l'écosystème
+
+![](https://raw.githubusercontent.com/ManzDev/frontend-evolution/master/frontend-evolution.png)
+
+https://github.com/ManzDev/frontend-evolution
+
+<aside class="notes"><p>Components:</p>
+<ul>
+<li>Google polymer &lt;-&gt; dev Chrome, lib simple dont le but était de disparaître au profit de nouveaux standards</li>
+<li>Google Angular &lt;-&gt; dev AdSense, framework séduisant pour les devs venant de Spring</li>
+<li>Facebook React</li>
+<li>Vue</li>
+<li>Svelte</li>
+</ul>
+</aside></script></section></div>
+    </div>
+
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"verticalSeparator":"\\s----\\s"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
