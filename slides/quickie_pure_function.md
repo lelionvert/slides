@@ -180,3 +180,4 @@ note:
 * lecture d'une valeur cachée
     * date
     * random
+* lancer une exception
