@@ -170,14 +170,14 @@ note:
 
 ## Code Smells
 
-* I/O (Input / Ouput)
-    * lire / écrire un fichier
-    * faire une requete réseau
-* fonction sans argument
-    * qui ne retourne pas une valeur constante
-* mutation d'un argument
-* variable globale
-* lecture d'une valeur cachée
-    * date
-    * random
-* lancer une exception
+- I/O (Input / Ouput)
+  - lire / écrire un fichier
+  - faire une requete réseau
+- fonction sans argument
+  - qui ne retourne pas une valeur constante
+- mutation d'un argument
+- variable globale
+- lecture d'une valeur cachée
+  - date
+  - random
+- lancer une exception
