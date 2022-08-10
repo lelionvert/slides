@@ -181,3 +181,14 @@ note:
   - date
   - random
 - lancer une exception
+
+---
+
+## 100% pure = No Code
+
+Un programme pure [ne fait rien](https://github.com/kelseyhightower/nocode)
+
+Il faut forcément faire des effets de bords pour faire un programme utile
+
+- Afficher quelque chose
+- Lire / écrire un fichier
