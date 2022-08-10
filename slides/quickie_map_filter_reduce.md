@@ -14,7 +14,10 @@ revealOptions:
   - First Citizen
     - Callback
     - Return Function
-  - Pure Function ?
+- [Pure Function](./quickie_pure_function.md)
+  - Deterministic
+  - No side effects
+  - Transparential referency
 - Immutabilité ?
 - Curry ?
 
