@@ -35,6 +35,10 @@ est-ce que quelqu'un peut essayer de donner une définition de ce qu'est une fon
 
 ## `function` keyword
 
+note:
+TODO pour plus tard, peut-être que cette partie on devrait commencer par des fonctions sans arguments
+Et faire une section dédiée aux arguments / paramètres puis enchaîner sur function anonyme et la suite
+
 ----
 
 ### Déclaration
@@ -91,6 +95,24 @@ les fonctions peuvent ne pas avoir de nom, on appelle ça une fonction anonyme
 
 dans ce cas, la variable a un nom mais pas la fonction
 
+----
+
+### Question 
+
+#### Est-ce que ce code est valide ? 
+
+```javascript
+it("Does it work ?", () => {
+  expect(increment(0)).toEqual(1);
+  const increment = function(n) {
+    return n + 1;
+  };
+});
+```
+
+note:
+Une expression de fonction est hissée, mais une déclaration de variable ne l'est pas 
+
 ---
 
 ## Fonctions fléchées / Arrow functions
@@ -116,12 +138,12 @@ it("should allow using arrow functions", () => {
 note:
 par rapport à l'exemple précédent :
 
-- on a enlevé le clé `function`
+- on a enlevé le mot clé `function`
 - on a ajouté la fat arrow `=>` entre l'argument et le block d'instructions
 
 ----
 
-#### Arguments
+#### Arguments / Paramètres
 
 ##### Arguments multiple
 
@@ -142,6 +164,31 @@ it("should allow to omit braces", () => {
     return n + 1;
   };
   expect(increment(0)).toEqual(1);
+});
+```
+
+----
+
+#### Default parameters
+
+```javascript
+it("should take default parameter", () => {
+  const hello = (name="world") => `Hello ${name} !`;
+
+  expect(hello()).toEqual("Hello world !");
+  expect(hello("dev")).toEqual("Hello dev !");
+});
+```
+
+----
+
+#### Rest parameters
+
+```javascript
+it("should take rest parameters", () => {
+  const concat = (glue, ...parts) => parts.join(glue);
+
+  expect(concat("&", "Pepper", "Carrot")).toEqual("Pepper&Carrot");
 });
 ```
 
@@ -178,8 +225,8 @@ it("should allow to return array", () => {
 });
 ```
 
+<div class="fragment" data-fragment-index="1">
 Object
-<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ```javascript
 it("should allow to return object", () => {
@@ -188,17 +235,17 @@ it("should allow to return object", () => {
   expect(euro(42)).toEqual({ euro: 42 });
 });
 ```
-<!-- .element: class="fragment" data-fragment-index="2" -->
+</div>
 
 note:
 pour un objet, on ne peut pas seulement mettre des accolades, sinon ça ferait un block d'instructions, dans ce cas, il faut entourer les accolades avec des parenthèses
 
 ---
 
-## Fonctions de première classe / First Class Citizen
+## Fonctions de première classe / Function as First Class Citizen
 
 note:
-les fonctions sont de première classe, elles peuvent être traitées comme n'importe quelle variable
+Un langage a des fonctions dites de premières classes s'ils traitent les fonctions comme des entités de premières classes, càd elles peuvent être traitées comme n'importe quelle variable
 
 ----
 
@@ -246,30 +293,49 @@ it("should allow to return a function", () => {
 });
 ```
 
----
-
-## Parameters
-
 ----
 
-### Default parameters
+### Fonction d'ordre supérieur / Higher order function
 
 ```javascript
-it("should take default parameter", () => {
-  const hello = (name="world") => `Hello ${name} !`;
-  expect(hello()).toEqual("Hello world !");
-  expect(hello("dev")).toEqual("Hello dev !");
+it("should be possible to have higher order function", () => {
+  function higherOrderFunction(anyFunction) {
+    return function callTwice(n) {
+      return anyFunction(anyFunction(n));
+    };
+  }
+  const incrementTwice = higherOrderFunction(n => n + 1);
+  expect(incrementTwice(1)).toEqual(3);
 });
 ```
 
+note:
+Si une fonction prend en argument une fonction ou retourne une fonction, c'est une fonction d'ordre supérieure
+Faire un lien avec la slide de composition d'après. On a anyFunction(anyFunction(n)), c'est de la composition
+
+---
+
+## Composition
+
 ----
 
-### Rest parameters
+### Diviser pour conquérir, 
+### mais assembler pour conduire 
+
+note:
+on assemble des fonctions plus simples pour faire des fonctions plus compliquées 
+ça nous permet d'écrire des petites fonctions qui ne font qu'une seule chose (reuse ++ et maintenabilité ++)
+
+----
 
 ```javascript
-it("should take rest parameters", () => {
-  const concat = (glue, ...parts) => parts.join(glue);
-  expect(concat("&", "Pepper", "Carrot")).toEqual("Pepper&Carrot");
+it("should be possible to compose functions", () => {
+  const increment = n => n + 1;
+  const powerTwo = n => n ** 2;
+  
+  const powerTwoAndIncrement = n => increment(powerTwo(n))
+
+  expect(powerTwoAndIncrement(2)).toEqual(5);
 });
 ```
 
