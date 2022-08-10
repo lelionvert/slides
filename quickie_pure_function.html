@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Quickie Pure Function</title>
+    <link rel="shortcut icon" href="./favicon.ico"/>
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+# Quickie Pure Function
+</script></section><section  data-markdown><script type="text/template">
+## Prérequis
+
+- [Function](./quickie_functions.md)
+</script></section><section ><section data-markdown><script type="text/template">
+## Définitions
+</script></section><section data-markdown><script type="text/template">
+### Fonction Pure / Pure Function
+
+<div class="fragment">
+
+Une fonction pure est une fonction qui respecte 2 propriétés :
+
+- qui _est_ une fonction **déterministe**
+- qui _ne doit pas_ faire d'**effets de bord** / side effects
+
+</div>
+</script></section><section data-markdown><script type="text/template">
+### Déterministe / Deterministic
+
+<div class="fragment">
+
+Une fonction détermiste a pour le _même argument_ **toujours** la _même_ valeur de _retour_
+
+</div>
+</script></section><section data-markdown><script type="text/template">
+### Effets de Bord / Side Effects
+
+<div class="fragment">
+
+Une fonction fait un effet de bord lorsqu'elle **lit ou modifie** quelque chose qui est est en **dehors** de ses **paramètres**
+
+</div>
+</script></section><section data-markdown><script type="text/template">
+## Transparence Référencielle / Referencial Transparency
+
+La **transparence référencielle** permet de remplacer l'appel à une fonction par la valeur qu'elle retourne
+</script></section><section data-markdown><script type="text/template">
+```typescript
+const add = (value1: number, value2: number): number =>
+    value1 + value2
+
+const a = add(3, 4)
+// équivalent à
+const a = 7
+```
+</script></section><section data-markdown><script type="text/template">
+Une fonction pure permet de faire de la **transparence référencielle**
+</script></section></section><section ><section data-markdown><script type="text/template">
+## Exemples
+
+Est-ce que la fonction est pure ?
+
+```typescript
+const toto = () => 42
+```
+</script></section><section data-markdown><script type="text/template">
+```typescript
+const identity = x => x
+```
+</script></section><section data-markdown><script type="text/template">
+```typescript
+const add = (value1: number, value2: number): number =>
+    value1 + value2
+```
+</script></section><section data-markdown><script type="text/template">
+```typescript
+const today = (): Date => new Date()
+```
+
+<aside class="notes"><p>lit la date depuis le système</p>
+</aside></script></section><section data-markdown><script type="text/template">
+```typescript
+fetch('http://perdu.com')
+```
+
+<aside class="notes"><p>fait des I/O</p>
+</aside></script></section><section data-markdown><script type="text/template">
+```typescript
+max(3, 12, 4)
+```
+</script></section><section data-markdown><script type="text/template">
+```typescript
+console.log('coucou')
+```
+</script></section><section data-markdown><script type="text/template">
+```typescript
+const addTo(array: number[], item: number): number[] => {
+    array.push(item)
+    return array
+}
+```
+
+<aside class="notes"><p>mute un argument</p>
+</aside></script></section><section data-markdown><script type="text/template">
+```typescript
+const addTo(array: number[], item: number): number[] => {
+    return array.concat(item)
+}
+```
+</script></section><section data-markdown><script type="text/template">
+```typescript
+const fizzBuzz = (value: number): string => {
+    switch (true) {
+        case 0 == value % 15: return "FizzBuzz"
+        case 0 == value %  5: return "Buzz"
+        case 0 == value %  3: return "Fizz"
+        default: return `${value}`
+    }
+}
+```
+</script></section><section data-markdown><script type="text/template">
+```typescript
+const getConfigPort = (): number => {
+    return Number.parseInt(process.env.PORT)
+}
+```
+
+<aside class="notes"><p>lit une variable globale</p>
+</aside></script></section></section><section  data-markdown><script type="text/template">
+## Code Smells
+
+* I/O (Input / Ouput)
+    * lire / écrire un fichier
+    * faire une requete réseau
+* fonction sans argument
+    * qui ne retourne pas une valeur constante
+* mutation d'un argument
+* variable globale
+* lecture d'une valeur cachée
+    * date
+    * random
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"verticalSeparator":"\\s----\\s"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
