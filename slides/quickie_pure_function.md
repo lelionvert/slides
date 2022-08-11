@@ -46,6 +46,9 @@ Une fonction détermiste a pour le _même argument_ **toujours** la _même_ vale
 
 Une fonction fait un effet de bord lorsqu'elle **lit ou modifie** quelque chose qui est est en **dehors** de ses **paramètres**
 
+note:
+    TODO reformuler : modifier les paramètres -> fonction pas pures
+
 </div>
 
 ----
@@ -115,6 +118,15 @@ note:
 ```typescript
 max(3, 12, 4)
 ```
+
+----
+
+```typescript
+readFile("package.json")
+```
+
+note:
+    on fait des I/O
 
 ----
 
