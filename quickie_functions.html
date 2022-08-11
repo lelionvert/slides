@@ -38,7 +38,10 @@ Une fonction est une **portion de code** :
 <aside class="notes"><p>est-ce que quelqu&#39;un peut essayer de donner une définition de ce qu&#39;est une fonction ?</p>
 </aside></script></section><section ><section data-markdown><script type="text/template">
 ## `function` keyword
-</script></section><section data-markdown><script type="text/template">
+
+<aside class="notes"><p>TODO pour plus tard, peut-être que cette partie on devrait commencer par des fonctions sans arguments
+Et faire une section dédiée aux arguments / paramètres puis enchaîner sur function anonyme et la suite</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ### Déclaration
 
 ```javascript
@@ -85,6 +88,21 @@ it("Function declarations can be anonymous", () => {
 
 <aside class="notes"><p>les fonctions peuvent ne pas avoir de nom, on appelle ça une fonction anonyme</p>
 <p>dans ce cas, la variable a un nom mais pas la fonction</p>
+</aside></script></section><section data-markdown><script type="text/template">
+### Question 
+
+#### Est-ce que ce code est valide ? 
+
+```javascript
+it("Does it work ?", () => {
+  expect(increment(0)).toEqual(1);
+  const increment = function(n) {
+    return n + 1;
+  };
+});
+```
+
+<aside class="notes"><p>Une expression de fonction est hissée, mais une déclaration de variable ne l&#39;est pas</p>
 </aside></script></section></section><section ><section data-markdown><script type="text/template">
 ## Fonctions fléchées / Arrow functions
 
@@ -104,11 +122,11 @@ it("should allow using arrow functions", () => {
 
 <aside class="notes"><p>par rapport à l&#39;exemple précédent :</p>
 <ul>
-<li>on a enlevé le clé <code>function</code></li>
+<li>on a enlevé le mot clé <code>function</code></li>
 <li>on a ajouté la fat arrow <code>=&gt;</code> entre l&#39;argument et le block d&#39;instructions</li>
 </ul>
 </aside></script></section><section data-markdown><script type="text/template">
-#### Arguments
+#### Arguments / Paramètres
 
 ##### Arguments multiple
 
@@ -129,6 +147,27 @@ it("should allow to omit braces", () => {
     return n + 1;
   };
   expect(increment(0)).toEqual(1);
+});
+```
+</script></section><section data-markdown><script type="text/template">
+#### Default parameters
+
+```javascript
+it("should take default parameter", () => {
+  const hello = (name="world") => `Hello ${name} !`;
+
+  expect(hello()).toEqual("Hello world !");
+  expect(hello("dev")).toEqual("Hello dev !");
+});
+```
+</script></section><section data-markdown><script type="text/template">
+#### Rest parameters
+
+```javascript
+it("should take rest parameters", () => {
+  const concat = (glue, ...parts) => parts.join(glue);
+
+  expect(concat("&", "Pepper", "Carrot")).toEqual("Pepper&Carrot");
 });
 ```
 </script></section><section data-markdown><script type="text/template">
@@ -161,8 +200,8 @@ it("should allow to return array", () => {
 });
 ```
 
+<div class="fragment" data-fragment-index="1">
 Object
-<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ```javascript
 it("should allow to return object", () => {
@@ -171,13 +210,13 @@ it("should allow to return object", () => {
   expect(euro(42)).toEqual({ euro: 42 });
 });
 ```
-<!-- .element: class="fragment" data-fragment-index="2" -->
+</div>
 
 <aside class="notes"><p>pour un objet, on ne peut pas seulement mettre des accolades, sinon ça ferait un block d&#39;instructions, dans ce cas, il faut entourer les accolades avec des parenthèses</p>
 </aside></script></section></section><section ><section data-markdown><script type="text/template">
-## Fonctions de première classe / First Class Citizen
+## Fonctions de première classe / Function as First Class Citizen
 
-<aside class="notes"><p>les fonctions sont de première classe, elles peuvent être traitées comme n&#39;importe quelle variable</p>
+<aside class="notes"><p>Un langage a des fonctions dites de premières classes s&#39;ils traitent les fonctions comme des entités de premières classes, càd elles peuvent être traitées comme n&#39;importe quelle variable</p>
 </aside></script></section><section data-markdown><script type="text/template">
 ### Assign
 
@@ -218,25 +257,40 @@ it("should allow to return a function", () => {
   expect(toPower2(3)).toEqual(9);
 });
 ```
-</script></section></section><section ><section data-markdown><script type="text/template">
-## Parameters
 </script></section><section data-markdown><script type="text/template">
-### Default parameters
+### Fonction d'ordre supérieur / Higher order function
 
 ```javascript
-it("should take default parameter", () => {
-  const hello = (name="world") => `Hello ${name} !`;
-  expect(hello()).toEqual("Hello world !");
-  expect(hello("dev")).toEqual("Hello dev !");
+it("should be possible to have higher order function", () => {
+  function higherOrderFunction(anyFunction) {
+    return function callTwice(n) {
+      return anyFunction(anyFunction(n));
+    };
+  }
+  const incrementTwice = higherOrderFunction(n => n + 1);
+  expect(incrementTwice(1)).toEqual(3);
 });
 ```
-</script></section><section data-markdown><script type="text/template">
-### Rest parameters
 
+<aside class="notes"><p>Si une fonction prend en argument une fonction ou retourne une fonction, c&#39;est une fonction d&#39;ordre supérieure
+Faire un lien avec la slide de composition d&#39;après. On a anyFunction(anyFunction(n)), c&#39;est de la composition</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
+## Composition
+</script></section><section data-markdown><script type="text/template">
+### Diviser pour conquérir, 
+### mais assembler pour conduire 
+
+<aside class="notes"><p>on assemble des fonctions plus simples pour faire des fonctions plus compliquées 
+ça nous permet d&#39;écrire des petites fonctions qui ne font qu&#39;une seule chose (reuse ++ et maintenabilité ++)</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ```javascript
-it("should take rest parameters", () => {
-  const concat = (glue, ...parts) => parts.join(glue);
-  expect(concat("&", "Pepper", "Carrot")).toEqual("Pepper&Carrot");
+it("should be possible to compose functions", () => {
+  const increment = n => n + 1;
+  const powerTwo = n => n ** 2;
+  
+  const powerTwoAndIncrement = n => increment(powerTwo(n))
+
+  expect(powerTwoAndIncrement(2)).toEqual(5);
 });
 ```
 </script></section></section><section  data-markdown><script type="text/template">
