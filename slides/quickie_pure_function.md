@@ -122,10 +122,13 @@ max(3, 12, 4)
 console.log('coucou')
 ```
 
+note:
+    on fait des I/O
+
 ----
 
 ```typescript
-const addTo(array: number[], item: number): number[] => {
+const addTo = (array: number[], item: number): number[] => {
     array.push(item)
     return array
 }
@@ -137,7 +140,7 @@ note:
 ----
 
 ```typescript
-const addTo(array: number[], item: number): number[] => {
+const addTo = (array: number[], item: number): number[] => {
     return array.concat(item)
 }
 ```
