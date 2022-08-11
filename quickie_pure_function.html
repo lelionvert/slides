@@ -137,16 +137,26 @@ const getConfigPort = (): number => {
 </aside></script></section></section><section  data-markdown><script type="text/template">
 ## Code Smells
 
-* I/O (Input / Ouput)
-    * lire / écrire un fichier
-    * faire une requete réseau
-* fonction sans argument
-    * qui ne retourne pas une valeur constante
-* mutation d'un argument
-* variable globale
-* lecture d'une valeur cachée
-    * date
-    * random
+- I/O (Input / Ouput)
+  - lire / écrire un fichier
+  - faire une requete réseau
+- fonction sans argument
+  - qui ne retourne pas une valeur constante
+- mutation d'un argument
+- variable globale
+- lecture d'une valeur cachée
+  - date
+  - random
+- lancer une exception
+</script></section><section  data-markdown><script type="text/template">
+## 100% pure = No Code
+
+Un programme pure [ne fait rien](https://github.com/kelseyhightower/nocode)
+
+Il faut forcément faire des effets de bords pour faire un programme utile
+
+- Afficher quelque chose
+- Lire / écrire un fichier
 </script></section></div>
     </div>
 
