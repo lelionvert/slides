@@ -47,8 +47,8 @@ Une fonction détermiste a pour le _même argument_ **toujours** la _même_ vale
 
 Une fonction fait un effet de bord lorsqu'elle **lit ou modifie** quelque chose qui est est en **dehors** de ses **paramètres**
 
-</div>
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>TODO reformuler : modifier les paramètres -&gt; fonction pas pures</p>
+</div></aside></script></section><section data-markdown><script type="text/template">
 ## Transparence Référencielle / Referencial Transparency
 
 La **transparence référencielle** permet de remplacer l'appel à une fonction par la valeur qu'elle retourne
@@ -98,11 +98,19 @@ max(3, 12, 4)
 ```
 </script></section><section data-markdown><script type="text/template">
 ```typescript
+readFile("package.json")
+```
+
+<aside class="notes"><p>on fait des I/O</p>
+</aside></script></section><section data-markdown><script type="text/template">
+```typescript
 console.log('coucou')
 ```
-</script></section><section data-markdown><script type="text/template">
+
+<aside class="notes"><p>on fait des I/O</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ```typescript
-const addTo(array: number[], item: number): number[] => {
+const addTo = (array: number[], item: number): number[] => {
     array.push(item)
     return array
 }
@@ -111,7 +119,7 @@ const addTo(array: number[], item: number): number[] => {
 <aside class="notes"><p>mute un argument</p>
 </aside></script></section><section data-markdown><script type="text/template">
 ```typescript
-const addTo(array: number[], item: number): number[] => {
+const addTo = (array: number[], item: number): number[] => {
     return array.concat(item)
 }
 ```
